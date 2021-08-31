@@ -24,7 +24,7 @@ public class ApartmentControllerAPI {
     public ResponseEntity<Apartment> saveApartment(@RequestBody Apartment apartment) {
         return new ResponseEntity<>(apartmentService.save(apartment), HttpStatus.CREATED);
     }
-    @GetMapping("/${id}")
+    @GetMapping("/{id}")
     public ResponseEntity<Apartment> findById(@PathVariable Long id) {
         Optional<Apartment> apartmentOptional = apartmentService.findById(id);
         if(!apartmentOptional.isPresent()) {
@@ -32,7 +32,7 @@ public class ApartmentControllerAPI {
         }
         return new ResponseEntity<>(apartmentOptional.get(),HttpStatus.OK);
     }
-    @PutMapping("/${id}")
+    @PutMapping("/{id}")
     public ResponseEntity<Apartment> editById(@PathVariable Long id,@RequestBody Apartment apartment) {
         Optional<Apartment> apartmentOptional = apartmentService.findById(id);
         if(!apartmentOptional.isPresent()) {
@@ -42,7 +42,7 @@ public class ApartmentControllerAPI {
         apartmentService.save(apartment);
         return new ResponseEntity<>(HttpStatus.OK);
     }
-    @DeleteMapping("/${id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<Apartment> deleteById(@PathVariable Long id) {
         Optional<Apartment>  apartmentOptional = apartmentService.findById(id);
         if(!apartmentOptional.isPresent()) {
