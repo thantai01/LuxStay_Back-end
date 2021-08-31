@@ -70,7 +70,7 @@ public class AuthControllerAPI {
         });
         user.setRoles(roles);
         userService.save(user);
-        return new ResponseEntity<>(new ResponseMessage("Successful Created!!!"), HttpStatus.OK);
+        return new ResponseEntity<>(new ResponseMessage("Successful created!!!"), HttpStatus.CREATED);
     }
     @PostMapping("/sign-in")
     public ResponseEntity<?> login(@Valid @RequestBody SignInForm signInForm) {
