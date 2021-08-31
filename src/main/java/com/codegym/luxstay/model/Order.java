@@ -31,6 +31,12 @@ public class Order {
     private String comment;
     private boolean checkIn;
 
+    @ManyToOne
+    private User user;
+
+    @ManyToOne
+    private Apartment apartment;
+
     public Order(LocalDate startDate, LocalDate endDate, String userFullName, String userPhoneNums, String orderStatus, long totalPaid, double rating, String comment) {
         this.startDate = startDate;
         this.endDate = endDate;
@@ -41,6 +47,20 @@ public class Order {
         this.rating = rating;
         this.comment = comment;
         this.checkIn = false;
+    }
+
+    public Order(LocalDate startDate, LocalDate endDate, String userFullName, String userPhoneNums, String orderStatus, long totalPaid, double rating, String comment, User user, Apartment apartment) {
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.userFullName = userFullName;
+        this.userPhoneNums = userPhoneNums;
+        this.orderStatus = orderStatus;
+        this.totalPaid = totalPaid;
+        this.rating = rating;
+        this.comment = comment;
+        this.checkIn = false;
+        this.user = user;
+        this.apartment = apartment;
     }
 
     public Order() {
