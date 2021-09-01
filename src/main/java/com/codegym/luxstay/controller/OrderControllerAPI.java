@@ -29,12 +29,14 @@ public class OrderControllerAPI {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Order> update(@PathVariable Long id){
+    public ResponseEntity<Order> update(@PathVariable Long id,@RequestBody Order order) {
         Optional<Order> optionalOrder = orderService.findById(id);
         if(!optionalOrder.isPresent()){
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-        return new ResponseEntity<>(optionalOrder.get(),HttpStatus.OK);
+        order.setId(optionalOrder.get().getId());
+        orderService.save(order);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")
