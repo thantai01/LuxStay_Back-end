@@ -8,7 +8,6 @@ import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
-import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -16,7 +15,7 @@ import java.util.List;
 public class Apartment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
     @NotBlank
     @Size(min = 6,max = 48)
     private String name;
@@ -25,15 +24,14 @@ public class Apartment {
     @NotBlank
     @Min(value = 1)
     @Max(value = 10)
-    private long bethRoom;
+    private String bethRoom;
     @NotBlank
     @Min(value = 1) @Max(value = 3)
-    private long bathRoom;
+    private String bathRoom;
     @NotBlank
     @Size(min = 1)
     private String description;
-    @NotBlank
-    private long price;
+    private Double price;
     @NotBlank
     private String status;
     @OneToMany
@@ -42,7 +40,8 @@ public class Apartment {
     public Apartment() {
     }
 
-    public Apartment(String name, ApartmentType apartmentType, long bethRoom, long bathRoom, String description, long price,String status) {
+    public Apartment(Long id, String name, ApartmentType apartmentType, String bethRoom, String bathRoom, String description, Double price, String status, List<Image> imageList) {
+        this.id = id;
         this.name = name;
         this.apartmentType = apartmentType;
         this.bethRoom = bethRoom;
@@ -50,9 +49,10 @@ public class Apartment {
         this.description = description;
         this.price = price;
         this.status = status;
+        this.imageList = imageList;
     }
 
-    public Apartment(String name, ApartmentType apartmentType, long bethRoom, long bathRoom, String description, long price,String status ,List<Image> imageList) {
+    public Apartment(String name, ApartmentType apartmentType, String bethRoom, String bathRoom, String description, Double price, String status, List<Image> imageList) {
         this.name = name;
         this.apartmentType = apartmentType;
         this.bethRoom = bethRoom;

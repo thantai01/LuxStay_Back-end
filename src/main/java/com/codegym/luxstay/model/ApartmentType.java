@@ -13,7 +13,7 @@ import javax.persistence.Id;
 public class ApartmentType {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
     private String name;
 
     public ApartmentType(String name) {

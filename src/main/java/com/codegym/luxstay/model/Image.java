@@ -4,16 +4,16 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Setter @Getter
 public class Image {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
-    @NotBlank
+    private Long id;
     @Lob
+
     private String imageUrl;
 
 
