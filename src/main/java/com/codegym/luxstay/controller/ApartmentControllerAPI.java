@@ -8,7 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
-
+@CrossOrigin("*")
 @RestController
 @RequestMapping("/apartments")
 public class ApartmentControllerAPI {
@@ -50,5 +50,15 @@ public class ApartmentControllerAPI {
         }
         apartmentService.delete(id);
         return  new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @GetMapping("/top-5")
+    public ResponseEntity<Iterable<Apartment>> findTop5(){
+        return new ResponseEntity<>(apartmentService.findTop5(),HttpStatus.OK);
+    }
+
+    @GetMapping("/find-not-available")
+    public ResponseEntity<Iterable<Apartment>> find(){
+        return new ResponseEntity<>(apartmentService.findApartmentNotAvailable(),HttpStatus.OK);
     }
 }
