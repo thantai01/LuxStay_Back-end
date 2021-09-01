@@ -25,4 +25,7 @@ public interface IApartmentRepository extends JpaRepository<Apartment, Long> {
 
     @Query(value = "select * from Apartment a where a.status like 'not available'", nativeQuery = true)
     Iterable<Apartment> findApartmentNotAvailable();
+    @Query(value = "select * from Apartment a where a.status like 'available'", nativeQuery = true)
+    Iterable<Apartment> findApartmentAvailable();
+
 }

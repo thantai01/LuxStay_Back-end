@@ -61,4 +61,9 @@ public class ApartmentControllerAPI {
     public ResponseEntity<Iterable<Apartment>> find(){
         return new ResponseEntity<>(apartmentService.findApartmentNotAvailable(),HttpStatus.OK);
     }
+
+    @GetMapping ("/find-available")
+    public ResponseEntity<Iterable<Apartment>> findApartmentAvailable(){
+        return new ResponseEntity<>(apartmentService.findApartmentAvailable(),HttpStatus.OK);
+    }
 }
