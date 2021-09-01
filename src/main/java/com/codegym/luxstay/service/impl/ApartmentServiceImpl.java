@@ -67,7 +67,10 @@ public class ApartmentServiceImpl implements IApartment {
         return iApartmentRepository.findApartmentNotAvailable();
     }
 
-
+    @Override
+    public Iterable<Apartment> findApartmentAvailable() {
+        return iApartmentRepository.findApartmentAvailable();
+    }
 
 
 }
