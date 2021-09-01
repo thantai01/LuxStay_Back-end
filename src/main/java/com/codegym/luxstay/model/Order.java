@@ -13,7 +13,7 @@ import java.time.LocalDate;
 public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private long id;
     @NotBlank
     private LocalDate startDate;
     @NotBlank
@@ -23,21 +23,15 @@ public class Order {
     @NotBlank
     private String userPhoneNums;
     private String orderStatus;
+    @NotBlank
+    private long totalPaid;
 
-    private Double totalPaid;
-
-    private Double rating;
+    private double rating;
 
     private String comment;
-    private Boolean checkIn;
+    private boolean checkIn;
 
-    @ManyToOne
-    private User user;
-
-    @ManyToOne
-    private Apartment apartment;
-
-    public Order(LocalDate startDate, LocalDate endDate, String userFullName, String userPhoneNums, String orderStatus, Double totalPaid, Double rating, String comment, Boolean checkIn, User user, Apartment apartment) {
+    public Order(LocalDate startDate, LocalDate endDate, String userFullName, String userPhoneNums, String orderStatus, long totalPaid, double rating, String comment) {
         this.startDate = startDate;
         this.endDate = endDate;
         this.userFullName = userFullName;
@@ -46,26 +40,9 @@ public class Order {
         this.totalPaid = totalPaid;
         this.rating = rating;
         this.comment = comment;
-        this.checkIn = checkIn;
-        this.user = user;
-        this.apartment = apartment;
+        this.checkIn = false;
     }
 
     public Order() {
-    }
-
-    public Order(Long id, LocalDate startDate, LocalDate endDate, String userFullName, String userPhoneNums, String orderStatus, Double totalPaid, Double rating, String comment, Boolean checkIn, User user, Apartment apartment) {
-        this.id = id;
-        this.startDate = startDate;
-        this.endDate = endDate;
-        this.userFullName = userFullName;
-        this.userPhoneNums = userPhoneNums;
-        this.orderStatus = orderStatus;
-        this.totalPaid = totalPaid;
-        this.rating = rating;
-        this.comment = comment;
-        this.checkIn = checkIn;
-        this.user = user;
-        this.apartment = apartment;
     }
 }
