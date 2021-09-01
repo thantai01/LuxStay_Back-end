@@ -56,4 +56,18 @@ public class ApartmentServiceImpl implements IApartment {
     public Iterable<Apartment> findAllByDescriptionContaining(String description) {
         return iApartmentRepository.findAllByDescriptionContaining(description);
     }
+
+    @Override
+    public Iterable<Apartment> findTop5() {
+        return iApartmentRepository.findTop5();
+    }
+
+    @Override
+    public Iterable<Apartment> findApartmentNotAvailable() {
+        return iApartmentRepository.findApartmentNotAvailable();
+    }
+
+
+
+
 }

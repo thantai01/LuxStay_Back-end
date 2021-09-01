@@ -1,8 +1,6 @@
 package com.codegym.luxstay.controller;
 
-import com.codegym.luxstay.model.Apartment;
 import com.codegym.luxstay.model.ApartmentType;
-import com.codegym.luxstay.service.impl.ApartmentServiceImpl;
 import com.codegym.luxstay.service.impl.ApartmentTypeServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
