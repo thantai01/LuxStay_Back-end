@@ -36,12 +36,20 @@ public class Apartment {
     private String status;
     @OneToMany
     private List<Image> imageList;
+    @NotBlank
+    private String city;
+    @NotBlank
+    private String district;
+    @NotBlank
+    private String ward;
+    @NotBlank
+    @Size(min = 3)
+    private String address;
 
     public Apartment() {
     }
 
-    public Apartment(Long id, String name, ApartmentType apartmentType, String bethRoom, String bathRoom, String description, Double price, String status, List<Image> imageList) {
-        this.id = id;
+    public Apartment(String name, ApartmentType apartmentType, String bethRoom, String bathRoom, String description, Double price, String status, List<Image> imageList, String city, String district, String ward, String address) {
         this.name = name;
         this.apartmentType = apartmentType;
         this.bethRoom = bethRoom;
@@ -50,9 +58,13 @@ public class Apartment {
         this.price = price;
         this.status = status;
         this.imageList = imageList;
+        this.city = city;
+        this.district = district;
+        this.ward = ward;
+        this.address = address;
     }
 
-    public Apartment(String name, ApartmentType apartmentType, String bethRoom, String bathRoom, String description, Double price, String status, List<Image> imageList) {
+    public Apartment(String name, ApartmentType apartmentType, String bethRoom, String bathRoom, String description, Double price, String status, String city, String district, String ward, String address) {
         this.name = name;
         this.apartmentType = apartmentType;
         this.bethRoom = bethRoom;
@@ -60,6 +72,9 @@ public class Apartment {
         this.description = description;
         this.price = price;
         this.status = status;
-        this.imageList = imageList;
+        this.city = city;
+        this.district = district;
+        this.ward = ward;
+        this.address = address;
     }
 }
