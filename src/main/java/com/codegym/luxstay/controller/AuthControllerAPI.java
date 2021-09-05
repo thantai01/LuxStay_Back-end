@@ -46,7 +46,7 @@ public class AuthControllerAPI {
         if(userService.existsByUsername(signUpForm.getUsername())){
             return new ResponseEntity<>(new ResponseMessage("no-user"), HttpStatus.OK);
         }
-        if(userService.existsByPhone(signUpForm.getEmail())){
+        if(userService.existsByPhone(signUpForm.getPhone())){
             return new ResponseEntity<>(new ResponseMessage("no-phone number"), HttpStatus.OK);
         }
         User user = new User(signUpForm.getUsername(), passwordEncoder.encode(signUpForm.getPassword()),signUpForm.getPhone());
@@ -79,7 +79,12 @@ public class AuthControllerAPI {
         SecurityContextHolder.getContext().setAuthentication(authentication);
         String token = jwtProvider.createToken(authentication);
         UserPrinciple userPrinciple = (UserPrinciple) authentication.getPrincipal();
-        return ResponseEntity.ok(new JwtResponse(token,userPrinciple.getFullName(), userPrinciple.getAuthorities()));
+        return ResponseEntity.ok(
+                new JwtResponse(token,
+                        userPrinciple.getFullName(),
+                        userPrinciple.getId(),
+                        userPrinciple.getAvatar(),
+                        userPrinciple.getAuthorities()));
     }
 
 }
