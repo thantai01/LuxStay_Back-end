@@ -49,6 +49,7 @@ public class UserController {
         user.setId(selected.get().getId());
         user.setUsername(selected.get().getUsername());
         user.setPassword(selected.get().getPassword());
+        user.setRoles(selected.get().getRoles());
         userService.save(user);
         return new ResponseEntity<>(HttpStatus.OK);
     }
