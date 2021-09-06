@@ -16,16 +16,6 @@ public class UserController {
     @Autowired
     private IUser userService;
 
-    @PutMapping("/{id}")
-    public ResponseEntity<User> editUser (@PathVariable Long id, @RequestBody User user){
-        Optional<User> userOptional = userService.findById(id);
-        if(!userOptional.isPresent()){
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-        user.setId(userOptional.get().getId());
-        userService.save(user);
-        return new ResponseEntity<>(HttpStatus.OK);
-    }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<User> deleteUser (@PathVariable Long id){
@@ -37,12 +27,30 @@ public class UserController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @GetMapping("/{id]")
-    public ResponseEntity<User> findUserById(@PathVariable Long id){
-        Optional<User> userOptional = userService.findById(id);
-        if (!userOptional.isPresent()){
+    @GetMapping("")
+    public ResponseEntity<Iterable<User>> findAll() {
+        return new ResponseEntity<>(userService.findAll(),HttpStatus.OK);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Optional<User>> findById(@PathVariable long id) {
+        Optional<User> selected = userService.findById(id);
+        if(selected.isPresent()) {
+            return new ResponseEntity<>(selected,HttpStatus.OK);
+        }
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
+    @PutMapping("/{id}")
+    public ResponseEntity<User> updateInfo (@PathVariable Long id, @RequestBody User user){
+        Optional<User> selected = userService.findById(id);
+        if(!selected.isPresent()){
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-        return new ResponseEntity<User>(userOptional.get(),HttpStatus.OK);
+        user.setId(selected.get().getId());
+        user.setUsername(selected.get().getUsername());
+        user.setPassword(selected.get().getPassword());
+        user.setRoles(selected.get().getRoles());
+        userService.save(user);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }

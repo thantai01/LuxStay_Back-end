@@ -11,4 +11,5 @@ public interface IApartment extends IGeneralService<Apartment> {
     Iterable<Apartment> findAllByDescriptionContaining(String description);
     Iterable<Apartment> findTop5();
     Iterable<Apartment> findApartmentNotAvailable();
+    Iterable<Apartment> findApartmentAvailable();
 }
