@@ -24,6 +24,7 @@ public class ApartmentServiceImpl implements IApartment {
 
     @Override
     public Apartment save(Apartment apartment) {
+
         return iApartmentRepository.save(apartment);
     }
 

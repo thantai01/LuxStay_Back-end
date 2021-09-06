@@ -34,7 +34,7 @@ public class Apartment {
     private Double price;
     @NotBlank
     private String status;
-    @OneToMany
+    @OneToMany(mappedBy = "apartmentImage", cascade = CascadeType.REMOVE)
     private List<Image> imageList;
     @NotBlank
     private String city;

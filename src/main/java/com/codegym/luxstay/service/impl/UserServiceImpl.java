@@ -43,8 +43,8 @@ public class UserServiceImpl implements IUser {
         return userRepository.existsByUsername(username);
     }
 
-    @Override
-    public Boolean existsByPhone(String phone) {
-        return userRepository.existsByPhone(phone);
-    }
+//    @Override
+//    public Boolean existsByPhone(String phone) {
+//        return userRepository.existsByPhone(phone);
+//    }
 }

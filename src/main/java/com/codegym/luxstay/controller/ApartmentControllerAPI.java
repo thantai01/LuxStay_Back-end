@@ -1,7 +1,9 @@
 package com.codegym.luxstay.controller;
 
 import com.codegym.luxstay.model.Apartment;
+import com.codegym.luxstay.model.Image;
 import com.codegym.luxstay.service.impl.ApartmentServiceImpl;
+import com.codegym.luxstay.service.iservice.IImage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -10,10 +12,13 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Optional;
 @CrossOrigin("*")
 @RestController
-@RequestMapping("/apartments")
+@RequestMapping("/api/apartments")
 public class ApartmentControllerAPI {
     @Autowired
     ApartmentServiceImpl apartmentService;
+
+    @Autowired
+    IImage imageService;
 
     @GetMapping("")
     public ResponseEntity<Iterable<Apartment>> getAllApartment() {
@@ -21,9 +26,17 @@ public class ApartmentControllerAPI {
     }
 
     @PostMapping("")
-    public ResponseEntity<Apartment> saveApartment(@RequestBody Apartment apartment) {
-        return new ResponseEntity<>(apartmentService.save(apartment), HttpStatus.CREATED);
+    public ResponseEntity<Void> saveApartment(@RequestBody Apartment apartment) {
+        apartmentService.save(apartment);
+        if(apartment.getImageList()!=null) {
+            for(Image image: apartment.getImageList()) {
+                image.setApartmentImage(apartment);
+                imageService.save(image);
+            }
+        }
+        return new ResponseEntity<Void>(HttpStatus.CREATED);
     }
+
     @GetMapping("/{id}")
     public ResponseEntity<Apartment> findById(@PathVariable Long id) {
         Optional<Apartment> apartmentOptional = apartmentService.findById(id);
