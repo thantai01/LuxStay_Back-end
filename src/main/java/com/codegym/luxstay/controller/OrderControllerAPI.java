@@ -48,4 +48,8 @@ public class OrderControllerAPI {
         orderService.delete(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
+    @GetMapping("/get/{id}")
+    public ResponseEntity<Iterable<Order>> findByUserId(@PathVariable Long id){
+        return new ResponseEntity<>(orderService.findAllByUserId(id), HttpStatus.OK);
+    }
 }

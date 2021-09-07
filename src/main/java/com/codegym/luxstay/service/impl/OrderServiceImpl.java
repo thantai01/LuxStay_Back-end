@@ -32,4 +32,9 @@ public class OrderServiceImpl implements IOrder {
     public void delete(long id) {
         oderRepository.deleteById(id);
     }
+
+    @Override
+    public Iterable<Order> findAllByUserId(Long id) {
+        return oderRepository.findAllByUserId(id);
+    }
 }
