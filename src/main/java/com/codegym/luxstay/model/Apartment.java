@@ -45,9 +45,12 @@ public class Apartment {
     @NotBlank
     @Size(min = 3)
     private String address;
+    @ManyToOne
+    private User user;
 
     public Apartment() {
     }
+
 
     public Apartment(String name, ApartmentType apartmentType, String bethRoom, String bathRoom, String description, Double price, String status, List<Image> imageList, String city, String district, String ward, String address) {
         this.name = name;

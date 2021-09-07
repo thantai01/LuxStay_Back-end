@@ -7,6 +7,8 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 import java.util.List;
 
 @Repository
@@ -25,7 +27,17 @@ public interface IApartmentRepository extends JpaRepository<Apartment, Long> {
 
     @Query(value = "select * from Apartment a where a.status like 'not available'", nativeQuery = true)
     Iterable<Apartment> findApartmentNotAvailable();
+
     @Query(value = "select * from Apartment a where a.status like 'available'", nativeQuery = true)
     Iterable<Apartment> findApartmentAvailable();
 
+
+    @Modifying
+    @Query(value = "select * from apartment where apartment.user_id = ?1", nativeQuery = true)
+    Iterable<Apartment> findAllByUserId(long id);
+
+    Iterable<Apartment> findAllByAddressContaining(@NotBlank @Size(min = 3) String address);
+    Iterable<Apartment> findAllByCityContaining(@NotBlank String city);
+    Iterable<Apartment> findAllByCityContainingAndDistrictContainingAndWardContaining(
+            @NotBlank String city, @NotBlank String district, @NotBlank String ward);
 }

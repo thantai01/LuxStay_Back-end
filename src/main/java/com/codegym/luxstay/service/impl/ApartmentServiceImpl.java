@@ -24,7 +24,6 @@ public class ApartmentServiceImpl implements IApartment {
 
     @Override
     public Apartment save(Apartment apartment) {
-
         return iApartmentRepository.save(apartment);
     }
 
@@ -71,6 +70,26 @@ public class ApartmentServiceImpl implements IApartment {
     @Override
     public Iterable<Apartment> findApartmentAvailable() {
         return iApartmentRepository.findApartmentAvailable();
+    }
+
+    @Override
+    public Iterable<Apartment> findAllByUserId(long id) {
+        return iApartmentRepository.findAllByUserId(id);
+    }
+
+    @Override
+    public Iterable<Apartment> findAllByAddressContaining(String address) {
+        return iApartmentRepository.findAllByAddressContaining(address);
+    }
+
+    @Override
+    public Iterable<Apartment> findAllByCityContaining(String city) {
+        return iApartmentRepository.findAllByCityContaining(city);
+    }
+
+    @Override
+    public Iterable<Apartment> findAllByCityContainingAndDistrictContainingAndWardContaining(String city, String district, String ward) {
+        return iApartmentRepository.findAllByCityContainingAndDistrictContainingAndWardContaining(city, district, ward);
     }
 
 
