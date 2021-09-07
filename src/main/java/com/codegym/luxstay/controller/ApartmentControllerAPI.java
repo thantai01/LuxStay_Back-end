@@ -79,4 +79,17 @@ public class ApartmentControllerAPI {
     public ResponseEntity<Iterable<Apartment>> findApartmentAvailable(){
         return new ResponseEntity<>(apartmentService.findApartmentAvailable(),HttpStatus.OK);
     }
+    @GetMapping("/findAllByUserId/{id}")
+    public ResponseEntity<Iterable<Apartment>> findAllByUserId(@PathVariable long id) {
+        Iterable<Apartment> iterable = apartmentService.findAllByUserId(id);
+        return new ResponseEntity<>(iterable,HttpStatus.OK);
+    }
+    @GetMapping("/search/")
+    public ResponseEntity<Iterable<Apartment>> searchByCity(@RequestParam String city) {
+        return new ResponseEntity<>(apartmentService.findAllByCityContaining(city),HttpStatus.OK);
+    }
+    @GetMapping("/search")
+    public ResponseEntity<Iterable<Apartment>> searchByAllRoundAddress(@RequestParam String city, String district, String ward) {
+        return new ResponseEntity<>(apartmentService.findAllByCityContainingAndDistrictContainingAndWardContaining(city,district,ward),HttpStatus.OK);
+    }
 }
