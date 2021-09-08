@@ -3,6 +3,7 @@ package com.codegym.luxstay.controller;
 import com.codegym.luxstay.model.Apartment;
 import com.codegym.luxstay.model.Image;
 import com.codegym.luxstay.service.impl.ApartmentServiceImpl;
+import com.codegym.luxstay.service.iservice.IApartment;
 import com.codegym.luxstay.service.iservice.IImage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -15,7 +16,7 @@ import java.util.Optional;
 @RequestMapping("/api/apartments")
 public class ApartmentControllerAPI {
     @Autowired
-    ApartmentServiceImpl apartmentService;
+    IApartment apartmentService;
 
     @Autowired
     IImage imageService;
@@ -26,7 +27,7 @@ public class ApartmentControllerAPI {
     }
 
     @PostMapping("")
-    public ResponseEntity<Void> saveApartment(@RequestBody Apartment apartment) {
+    public ResponseEntity<Apartment> saveApartment(@RequestBody Apartment apartment) {
         apartmentService.save(apartment);
         if(apartment.getImageList()!=null) {
             for(Image image: apartment.getImageList()) {
@@ -34,8 +35,7 @@ public class ApartmentControllerAPI {
                 imageService.save(image);
             }
         }
-        return new ResponseEntity<Void>(HttpStatus.CREATED);
-    }
+        return new ResponseEntity<>(apartmentService.save(apartment),HttpStatus.CREATED);}
 
     @GetMapping("/{id}")
     public ResponseEntity<Apartment> findById(@PathVariable Long id) {
