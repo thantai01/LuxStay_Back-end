@@ -14,20 +14,13 @@ public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @NotBlank
     private LocalDate startDate;
-    @NotBlank
     private LocalDate endDate;
-    @NotBlank
     private String userFullName;
-    @NotBlank
     private String userPhoneNums;
     private String orderStatus;
-
     private Double totalPaid;
-
     private Double rating;
-
     private String comment;
     private Boolean checkIn;
 

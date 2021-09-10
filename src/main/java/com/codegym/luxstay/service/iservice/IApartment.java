@@ -20,4 +20,5 @@ public interface IApartment extends IGeneralService<Apartment> {
     Iterable<Apartment> findAllByCityContaining(@NotBlank String city);
     Iterable<Apartment> findAllByCityContainingAndDistrictContainingAndWardContaining(
             @NotBlank String city, @NotBlank String district, @NotBlank String ward);
+    Iterable<Apartment> find8Newest();
 }

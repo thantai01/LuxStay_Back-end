@@ -10,7 +10,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashSet;
 import java.util.Optional;
+import java.util.Set;
+
 @CrossOrigin("*")
 @RestController
 @RequestMapping("/api/apartments")
@@ -91,5 +94,9 @@ public class ApartmentControllerAPI {
     @GetMapping("/search")
     public ResponseEntity<Iterable<Apartment>> searchByAllRoundAddress(@RequestParam String city, String district, String ward) {
         return new ResponseEntity<>(apartmentService.findAllByCityContainingAndDistrictContainingAndWardContaining(city,district,ward),HttpStatus.OK);
+    }
+    @GetMapping("/newest-apartments")
+    public ResponseEntity<Iterable<Apartment>> newestApartment() {
+        return new ResponseEntity<>(apartmentService.find8Newest(),HttpStatus.OK);
     }
 }

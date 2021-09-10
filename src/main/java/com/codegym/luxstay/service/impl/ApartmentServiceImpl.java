@@ -92,5 +92,10 @@ public class ApartmentServiceImpl implements IApartment {
         return iApartmentRepository.findAllByCityContainingAndDistrictContainingAndWardContaining(city, district, ward);
     }
 
+    @Override
+    public Iterable<Apartment> find8Newest() {
+        return iApartmentRepository.find8Newest();
+    }
+
 
 }

@@ -9,9 +9,11 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
 
-@CrossOrigin("*")
+
 @RestController
-@RequestMapping("api/oders")
+@RequestMapping("api/orders")
+@CrossOrigin("*")
+
 public class OrderControllerAPI {
 
     @Autowired
@@ -25,7 +27,7 @@ public class OrderControllerAPI {
     @PostMapping("")
     public ResponseEntity<Order> create (@RequestBody Order order){
         orderService.save(order);
-        return new ResponseEntity<>(HttpStatus.CREATED);
+        return new ResponseEntity<>(orderService.save(order),HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}")
