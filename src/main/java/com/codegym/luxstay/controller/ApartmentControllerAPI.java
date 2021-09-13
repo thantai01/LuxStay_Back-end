@@ -9,8 +9,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
+
 
 import java.util.HashSet;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Optional;
 import java.util.Set;
 
@@ -54,7 +59,7 @@ public class ApartmentControllerAPI {
         if(!apartmentOptional.isPresent()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
-        apartment.setId(apartmentOptional.get().getId());
+        //apartment.setId(apartmentOptional.get().getId());
         apartmentService.save(apartment);
         return new ResponseEntity<>(HttpStatus.OK);
     }
@@ -82,6 +87,16 @@ public class ApartmentControllerAPI {
     public ResponseEntity<Iterable<Apartment>> findApartmentAvailable(){
         return new ResponseEntity<>(apartmentService.findApartmentAvailable(),HttpStatus.OK);
     }
+    @GetMapping ("/find")
+    public ResponseEntity<Iterable<Apartment>> findd(@RequestParam("name") String name, @RequestParam("startDate") Date startDate) {
+        if (name == "") {
+            return new ResponseEntity<>(apartmentService.searchManyDate(startDate),HttpStatus.OK);
+        } else if (startDate == null){
+            return new ResponseEntity<>(apartmentService.searchByString(name), HttpStatus.OK);
+        } else
+            return new ResponseEntity<>(apartmentService.searchMany1(name, startDate), HttpStatus.OK);
+    }
+
     @GetMapping("/findAllByUserId/{id}")
     public ResponseEntity<Iterable<Apartment>> findAllByUserId(@PathVariable long id) {
         Iterable<Apartment> iterable = apartmentService.findAllByUserId(id);
@@ -95,6 +110,7 @@ public class ApartmentControllerAPI {
     public ResponseEntity<Iterable<Apartment>> searchByAllRoundAddress(@RequestParam String city, String district, String ward) {
         return new ResponseEntity<>(apartmentService.findAllByCityContainingAndDistrictContainingAndWardContaining(city,district,ward),HttpStatus.OK);
     }
+
     @GetMapping("/newest-apartments")
     public ResponseEntity<Iterable<Apartment>> newestApartment() {
         return new ResponseEntity<>(apartmentService.find8Newest(),HttpStatus.OK);
@@ -119,5 +135,26 @@ public class ApartmentControllerAPI {
             return new ResponseEntity<>(selected,HttpStatus.CREATED);
         }
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    @GetMapping("/search-price")
+    public ResponseEntity<Iterable<Apartment>> searchByPrice(@RequestParam("price1") Double price1, @RequestParam("price2") Double price2){
+        return new ResponseEntity<>(apartmentService.findbyPrice(price1, price2), HttpStatus.OK);
+    }
+    @GetMapping("/search-all")
+    public ResponseEntity<Iterable<Apartment>> searchByAll(@RequestParam("value") String value, @RequestParam("typeID") String typeID, @RequestParam("price1") String price1, @RequestParam("price2") String price2){
+        Long typeApartment_id =0L;
+        Double price11 = 0d;
+        Double price22 = 0d;
+        if(!price1.isEmpty()){
+            price11 = Double.parseDouble(price1);
+        }
+        if (!price2.isEmpty()){
+            price22 = Double.parseDouble(price2);
+        }
+        if(!typeID.isEmpty()){
+            typeApartment_id = Long.parseLong(typeID);
+        }
+
+        return new ResponseEntity<>(apartmentService.findByAll(value,typeApartment_id, price11, price22), HttpStatus.OK);
+
     }
 }

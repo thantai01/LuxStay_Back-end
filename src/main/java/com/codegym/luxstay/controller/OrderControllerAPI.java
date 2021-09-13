@@ -69,7 +69,7 @@ public class OrderControllerAPI {
         orderService.delete(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
-
+    
     @GetMapping("/findByApartment/{apartmentId}")
     public ResponseEntity<Iterable<Order>> findAllByApartmentId(@PathVariable long apartmentId) {
         return new ResponseEntity<>(orderService.findAllByApartmentId(apartmentId),HttpStatus.OK);
@@ -81,6 +81,15 @@ public class OrderControllerAPI {
     @GetMapping("/findOrderPending/{apartmentId}")
     public ResponseEntity<Iterable<Order>> findAllByStatusAndApartment(@PathVariable long apartmentId) {
         return new ResponseEntity<>(orderService.findAllOrderOfApartmentWithPending(apartmentId),HttpStatus.OK);
+
+    @GetMapping("/get/{id}")
+    public ResponseEntity<Iterable<Order>> findByUserId(@PathVariable Long id){
+        return new ResponseEntity<>(orderService.findAllByUserId(id), HttpStatus.OK);
     }
+
+    @GetMapping("/get-apartment/{apartmentID}")
+    public ResponseEntity<Iterable<Order>> findByApartmentID(@PathVariable Long apartmentID){
+        return new ResponseEntity<>(orderService.findAllByApartment(apartmentID), HttpStatus.OK);    
+   }
 
 }

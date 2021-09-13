@@ -52,4 +52,14 @@ public class OrderServiceImpl implements IOrder {
     public Iterable<Order> findAllOrderOfApartmentWithPending(long apartmentId) {
         return orderRepository.findAllOrderOfApartmentWithPending(apartmentId);
     }
+
+    @Override
+    public Iterable<Order> findAllByUserId(Long id) {
+        return oderRepository.findAllByUserId(id);
+    }
+
+    @Override
+    public Iterable<Order> findAllByApartment(Long apartmentID) {
+        return oderRepository.findAllByApartment(apartmentID);
+    }
 }

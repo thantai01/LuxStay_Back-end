@@ -5,7 +5,13 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 
+import org.springframework.data.repository.query.Param;
+import org.springframework.stereotype.Repository;
+
+
+@Repository
 public interface IOderRepository extends JpaRepository<Order,Long> {
+
     @Query(value = "select * from orders where user_id =?1 ",nativeQuery = true)
     Iterable<Order> findAllByUserId(Long user_id);
 
@@ -18,5 +24,12 @@ public interface IOderRepository extends JpaRepository<Order,Long> {
 
     @Query(value = "select * from orders where apartment_id =?1 and order_status like 'Pending' order by id desc", nativeQuery = true)
     Iterable<Order> findAllOrderOfApartmentWithPending(long apartmentId);
+
+
+    @Modifying
+    @Query(value = "select * from Order where user_id = :id", nativeQuery = true)
+    Iterable<Order>findAllByUserId(@Param("id") Long id);
+    @Query(value = "select * from Order o where o.apartment_id = :apartmentID", nativeQuery = true)
+    Iterable<Order> findAllByApartment(@Param("apartmentID") Long apartmentID);
 
 }
