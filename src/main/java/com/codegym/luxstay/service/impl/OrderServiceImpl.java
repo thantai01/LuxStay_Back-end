@@ -11,26 +11,46 @@ import java.util.Optional;
 @Service
 public class OrderServiceImpl implements IOrder {
     @Autowired
-    private IOderRepository oderRepository;
+    private IOderRepository orderRepository;
 
     @Override
     public Iterable<Order> findAll() {
-        return oderRepository.findAll();
+        return orderRepository.findAll();
     }
 
     @Override
     public Optional<Order> findById(long id) {
-        return oderRepository.findById(id);
+        return orderRepository.findById(id);
     }
 
     @Override
     public Order save(Order order) {
-        return oderRepository.save(order);
+        return orderRepository.save(order);
     }
 
     @Override
     public void delete(long id) {
-        oderRepository.deleteById(id);
+        orderRepository.deleteById(id);
+    }
+
+    @Override
+    public Iterable<Order> findAllOrderOfUserHasApartment(long apartmentUserId) {
+        return orderRepository.findAllOrderOfUserHasApartment(apartmentUserId);
+    }
+
+    @Override
+    public Iterable<Order> findAllByUserId(Long user_id) {
+        return orderRepository.findAllByUserId(user_id);
+    }
+
+    @Override
+    public Iterable<Order> findAllByApartmentId(Long apartment_id) {
+        return orderRepository.findAllByApartmentId(apartment_id);
+    }
+
+    @Override
+    public Iterable<Order> findAllOrderOfApartmentWithPending(long apartmentId) {
+        return orderRepository.findAllOrderOfApartmentWithPending(apartmentId);
     }
 
     @Override

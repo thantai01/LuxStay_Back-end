@@ -6,6 +6,7 @@ import lombok.Setter;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import java.time.LocalDate;
+import java.util.Date;
 
 @Entity
 @Getter @Setter
@@ -14,20 +15,13 @@ public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @NotBlank
-    private LocalDate startDate;
-    @NotBlank
-    private LocalDate endDate;
-    @NotBlank
+    private Date startDate;
+    private Date endDate;
     private String userFullName;
-    @NotBlank
     private String userPhoneNums;
     private String orderStatus;
-
     private Double totalPaid;
-
     private Double rating;
-
     private String comment;
     private Boolean checkIn;
 
@@ -37,7 +31,7 @@ public class Order {
     @ManyToOne
     private Apartment apartment;
 
-    public Order(LocalDate startDate, LocalDate endDate, String userFullName, String userPhoneNums, String orderStatus, Double totalPaid, Double rating, String comment, Boolean checkIn, User user, Apartment apartment) {
+    public Order(Date startDate, Date endDate, String userFullName, String userPhoneNums, String orderStatus, Double totalPaid, Double rating, String comment, Boolean checkIn, User user, Apartment apartment) {
         this.startDate = startDate;
         this.endDate = endDate;
         this.userFullName = userFullName;
@@ -54,7 +48,7 @@ public class Order {
     public Order() {
     }
 
-    public Order(Long id, LocalDate startDate, LocalDate endDate, String userFullName, String userPhoneNums, String orderStatus, Double totalPaid, Double rating, String comment, Boolean checkIn, User user, Apartment apartment) {
+    public Order(Long id, Date startDate, Date endDate, String userFullName, String userPhoneNums, String orderStatus, Double totalPaid, Double rating, String comment, Boolean checkIn, User user, Apartment apartment) {
         this.id = id;
         this.startDate = startDate;
         this.endDate = endDate;

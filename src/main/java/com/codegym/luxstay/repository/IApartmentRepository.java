@@ -20,6 +20,8 @@ public interface IApartmentRepository extends JpaRepository<Apartment, Long> {
     Iterable<Apartment> findAllByApartmentTypeContaining(String type);
     Iterable<Apartment> findAllByDescriptionContaining(String description);
 
+    @Query(value = "select * from apartment order by apartment.id desc limit 8", nativeQuery = true)
+    Iterable<Apartment> find8Newest();
 
 
     @Modifying
