@@ -107,6 +107,10 @@ public class ApartmentServiceImpl implements IApartment {
     }
 
     @Override
+
+    public Iterable<Apartment> find8Newest() {
+        return iApartmentRepository.find8Newest();
+
     public Iterable<Apartment> findbyPrice(Double price1, Double price2) {
         return iApartmentRepository.findbyPrice(price1, price2);
     }

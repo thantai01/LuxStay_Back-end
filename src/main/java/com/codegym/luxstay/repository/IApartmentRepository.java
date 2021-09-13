@@ -20,6 +20,8 @@ public interface IApartmentRepository extends JpaRepository<Apartment, Long> {
     Iterable<Apartment> findAllByApartmentTypeContaining(String type);
     Iterable<Apartment> findAllByDescriptionContaining(String description);
 
+    @Query(value = "select * from apartment order by apartment.id desc limit 8", nativeQuery = true)
+    Iterable<Apartment> find8Newest();
 
 
     @Modifying
@@ -55,4 +57,6 @@ public interface IApartmentRepository extends JpaRepository<Apartment, Long> {
 
     @Query(value = "select * from Apartment a where (:value is null or a.name like %:value% or a.city like %:value% or a.district like %:value% or a.ward like %:value% ) and (:typeID = 0 or a.apartment_type_id = :typeID) and ((:price1 = 0 and :price2 = 0) or (a.price between :price1 and :price2)) group by a.id", nativeQuery = true)
         Iterable<Apartment> findByAll(@Param("value") String value,@Param("typeID") Long typeID, @Param("price1") Double price1, @Param("price2") Double price2 );
+
+
 }
