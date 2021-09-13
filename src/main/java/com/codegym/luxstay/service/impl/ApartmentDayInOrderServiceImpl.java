@@ -31,4 +31,9 @@ public class ApartmentDayInOrderServiceImpl implements IApartmentDayInOrder {
     public void delete(long id) {
         apartmentDayInOrderRepository.deleteById(id);
     }
+
+    @Override
+    public Iterable<ApartmentDayInOrder> findAllByApartmentId(long apartmentId) {
+        return apartmentDayInOrderRepository.findAllByApartmentId(apartmentId);
+    }
 }

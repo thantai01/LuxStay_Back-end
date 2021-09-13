@@ -41,12 +41,12 @@ public class ApartmentControllerAPI {
         return new ResponseEntity<>(apartmentService.save(apartment),HttpStatus.CREATED);}
 
     @GetMapping("/{id}")
-    public ResponseEntity<Apartment> findById(@PathVariable Long id) {
+    public ResponseEntity<Optional<Apartment>> findById(@PathVariable Long id) {
         Optional<Apartment> apartmentOptional = apartmentService.findById(id);
-        if(!apartmentOptional.isPresent()) {
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        if(apartmentOptional.isPresent()) {
+            return new ResponseEntity<>(apartmentOptional,HttpStatus.OK);
         }
-        return new ResponseEntity<>(apartmentOptional.get(),HttpStatus.OK);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
     @PutMapping("/{id}")
     public ResponseEntity<Apartment> editById(@PathVariable Long id,@RequestBody Apartment apartment) {
@@ -98,5 +98,26 @@ public class ApartmentControllerAPI {
     @GetMapping("/newest-apartments")
     public ResponseEntity<Iterable<Apartment>> newestApartment() {
         return new ResponseEntity<>(apartmentService.find8Newest(),HttpStatus.OK);
+    }
+    @PutMapping("/set-status")
+    public ResponseEntity<Optional<Apartment>> setApartmentStatus(@RequestParam long id, @RequestBody Apartment apartment) {
+        Optional<Apartment> selected = apartmentService.findById(id);
+        if (selected.isPresent()){
+            apartment.setId(selected.get().getId());
+            apartment.setApartmentType(selected.get().getApartmentType());
+            apartment.setAddress(selected.get().getAddress());
+            apartment.setBathRoom(selected.get().getBathRoom());
+            apartment.setBethRoom(selected.get().getBethRoom());
+            apartment.setCity(selected.get().getCity());
+            apartment.setDistrict(selected.get().getDistrict());
+            apartment.setWard(selected.get().getWard());
+            apartment.setDescription(selected.get().getDescription());
+            apartment.setName(selected.get().getName());
+            apartment.setUser(selected.get().getUser());
+            apartment.setPrice(selected.get().getPrice());
+            apartmentService.save(apartment);
+            return new ResponseEntity<>(selected,HttpStatus.CREATED);
+        }
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }

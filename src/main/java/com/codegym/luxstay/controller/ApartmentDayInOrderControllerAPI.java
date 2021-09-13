@@ -10,7 +10,8 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/apartmentdayinorders")
+@CrossOrigin("*")
+@RequestMapping("api/apartment-day-in-orders")
 public class ApartmentDayInOrderControllerAPI {
     @Autowired
     ApartmentDayInOrderServiceImpl apartmentDayInOrderService;
@@ -18,6 +19,7 @@ public class ApartmentDayInOrderControllerAPI {
     @GetMapping("")
     public ResponseEntity<Iterable<ApartmentDayInOrder>> getAllApartment() {
         return new ResponseEntity<>(apartmentDayInOrderService.findAll(), HttpStatus.OK);
+
     }
 
     @PostMapping("")
@@ -50,5 +52,9 @@ public class ApartmentDayInOrderControllerAPI {
         }
         apartmentDayInOrderService.delete(id);
         return  new ResponseEntity<>(HttpStatus.OK);
+    }
+    @GetMapping("/findAllByApartment/{apartmentId}")
+    public ResponseEntity<Iterable<ApartmentDayInOrder>> findAllByApartmentId(@PathVariable long apartmentId) {
+        return new ResponseEntity<>(apartmentDayInOrderService.findAllByApartmentId(apartmentId),HttpStatus.OK);
     }
 }
