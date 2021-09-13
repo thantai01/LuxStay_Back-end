@@ -46,9 +46,9 @@ public class AuthControllerAPI {
         if(userService.existsByUsername(signUpForm.getUsername())){
             return new ResponseEntity<>(new ResponseMessage("no-user"), HttpStatus.OK);
         }
-        if(userService.existsByPhone(signUpForm.getPhone())){
-            return new ResponseEntity<>(new ResponseMessage("no-phone number"), HttpStatus.OK);
-        }
+//        if(userService.existsByPhone(signUpForm.getPhone())){
+//            return new ResponseEntity<>(new ResponseMessage("no-phone number"), HttpStatus.OK);
+//        }
         User user = new User(signUpForm.getUsername(), passwordEncoder.encode(signUpForm.getPassword()),signUpForm.getPhone());
         Set<String> strRoles = signUpForm.getRoles();
         Set<Role> roles = new HashSet<>();

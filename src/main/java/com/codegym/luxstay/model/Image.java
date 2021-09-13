@@ -1,5 +1,6 @@
 package com.codegym.luxstay.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -13,8 +14,12 @@ public class Image {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Lob
-
     private String imageUrl;
+    @JsonBackReference
+    @ManyToOne
+    @JoinColumn(name = "apartment_id")
+    private Apartment apartmentImage;
+
 
 
     public Image(String imageUrl) {

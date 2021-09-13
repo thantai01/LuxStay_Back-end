@@ -1,7 +1,10 @@
 package com.codegym.luxstay.controller;
 
 import com.codegym.luxstay.model.Apartment;
+import com.codegym.luxstay.model.Image;
 import com.codegym.luxstay.service.impl.ApartmentServiceImpl;
+import com.codegym.luxstay.service.iservice.IApartment;
+import com.codegym.luxstay.service.iservice.IImage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,10 +17,13 @@ import java.util.Date;
 import java.util.Optional;
 @CrossOrigin("*")
 @RestController
-@RequestMapping("/apartments")
+@RequestMapping("/api/apartments")
 public class ApartmentControllerAPI {
     @Autowired
-    ApartmentServiceImpl apartmentService;
+    IApartment apartmentService;
+
+    @Autowired
+    IImage imageService;
 
     @GetMapping("")
     public ResponseEntity<Iterable<Apartment>> getAllApartment() {
@@ -26,8 +32,15 @@ public class ApartmentControllerAPI {
 
     @PostMapping("")
     public ResponseEntity<Apartment> saveApartment(@RequestBody Apartment apartment) {
-        return new ResponseEntity<>(apartmentService.save(apartment), HttpStatus.CREATED);
-    }
+        apartmentService.save(apartment);
+        if(apartment.getImageList()!=null) {
+            for(Image image: apartment.getImageList()) {
+                image.setApartmentImage(apartment);
+                imageService.save(image);
+            }
+        }
+        return new ResponseEntity<>(apartmentService.save(apartment),HttpStatus.CREATED);}
+
     @GetMapping("/{id}")
     public ResponseEntity<Apartment> findById(@PathVariable Long id) {
         Optional<Apartment> apartmentOptional = apartmentService.findById(id);
@@ -78,5 +91,40 @@ public class ApartmentControllerAPI {
             return new ResponseEntity<>(apartmentService.searchByString(name), HttpStatus.OK);
         } else
             return new ResponseEntity<>(apartmentService.searchMany1(name, startDate), HttpStatus.OK);
+    }
+
+    @GetMapping("/findAllByUserId/{id}")
+    public ResponseEntity<Iterable<Apartment>> findAllByUserId(@PathVariable long id) {
+        Iterable<Apartment> iterable = apartmentService.findAllByUserId(id);
+        return new ResponseEntity<>(iterable,HttpStatus.OK);
+    }
+    @GetMapping("/search/")
+    public ResponseEntity<Iterable<Apartment>> searchByCity(@RequestParam String city) {
+        return new ResponseEntity<>(apartmentService.findAllByCityContaining(city),HttpStatus.OK);
+    }
+    @GetMapping("/search")
+    public ResponseEntity<Iterable<Apartment>> searchByAllRoundAddress(@RequestParam String city, String district, String ward) {
+        return new ResponseEntity<>(apartmentService.findAllByCityContainingAndDistrictContainingAndWardContaining(city,district,ward),HttpStatus.OK);
+    }
+    @GetMapping("/search-price")
+    public ResponseEntity<Iterable<Apartment>> searchByPrice(@RequestParam("price1") Double price1, @RequestParam("price2") Double price2){
+        return new ResponseEntity<>(apartmentService.findbyPrice(price1, price2), HttpStatus.OK);
+    }
+    @GetMapping("/search-all")
+    public ResponseEntity<Iterable<Apartment>> searchByAll(@RequestParam("value") String value, @RequestParam("typeID") String typeID, @RequestParam("price1") String price1, @RequestParam("price2") String price2){
+        Long typeApartment_id =0L;
+        Double price11 = 0d;
+        Double price22 = 0d;
+        if(!price1.isEmpty()){
+            price11 = Double.parseDouble(price1);
+        }
+        if (!price2.isEmpty()){
+            price22 = Double.parseDouble(price2);
+        }
+        if(!typeID.isEmpty()){
+            typeApartment_id = Long.parseLong(typeID);
+        }
+
+        return new ResponseEntity<>(apartmentService.findByAll(value,typeApartment_id, price11, price22), HttpStatus.OK);
     }
 }
