@@ -8,5 +8,5 @@ import java.util.Optional;
 public interface IUser extends IGeneralService<User> {
     Optional<User> findByUsername(String username);
     Boolean existsByUsername(String username);
-    Boolean existsByPhone(String phone);
+//    Boolean existsByPhone(String phone);
 }

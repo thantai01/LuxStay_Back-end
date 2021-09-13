@@ -87,6 +87,34 @@ public class ApartmentServiceImpl implements IApartment {
     public Iterable<Apartment> searchByString(String name) {
         return iApartmentRepository.searchByString(name);
     }
+    public Iterable<Apartment> findAllByUserId(long id) {
+        return iApartmentRepository.findAllByUserId(id);
+    }
+
+    @Override
+    public Iterable<Apartment> findAllByAddressContaining(String address) {
+        return iApartmentRepository.findAllByAddressContaining(address);
+    }
+
+    @Override
+    public Iterable<Apartment> findAllByCityContaining(String city) {
+        return iApartmentRepository.findAllByCityContaining(city);
+    }
+
+    @Override
+    public Iterable<Apartment> findAllByCityContainingAndDistrictContainingAndWardContaining(String city, String district, String ward) {
+        return iApartmentRepository.findAllByCityContainingAndDistrictContainingAndWardContaining(city, district, ward);
+    }
+
+    @Override
+    public Iterable<Apartment> findbyPrice(Double price1, Double price2) {
+        return iApartmentRepository.findbyPrice(price1, price2);
+    }
+
+    @Override
+    public Iterable<Apartment> findByAll(String value, Long typeID, Double price1, Double price2) {
+        return iApartmentRepository.findByAll(value, typeID, price1, price2);
+    }
 
 
 }
