@@ -80,8 +80,8 @@ public class OrderControllerAPI {
     }
     @GetMapping("/findOrderPending/{apartmentId}")
     public ResponseEntity<Iterable<Order>> findAllByStatusAndApartment(@PathVariable long apartmentId) {
-        return new ResponseEntity<>(orderService.findAllOrderOfApartmentWithPending(apartmentId),HttpStatus.OK);
-
+        return new ResponseEntity<>(orderService.findAllOrderOfApartmentWithPending(apartmentId), HttpStatus.OK);
+    }
     @GetMapping("/get/{id}")
     public ResponseEntity<Iterable<Order>> findByUserId(@PathVariable Long id){
         return new ResponseEntity<>(orderService.findAllByUserId(id), HttpStatus.OK);

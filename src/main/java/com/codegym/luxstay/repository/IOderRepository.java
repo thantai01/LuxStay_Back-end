@@ -15,7 +15,7 @@ public interface IOderRepository extends JpaRepository<Order,Long> {
     @Query(value = "select * from orders where user_id =?1 ",nativeQuery = true)
     Iterable<Order> findAllByUserId(Long user_id);
 
-    @Query(value = "select * from orders where apartment_id =?1",nativeQuery = true)
+    @Query(value = "select * from orders where apartment_id =?1 group by orders.apartment_id",nativeQuery = true)
     Iterable<Order> findAllByApartmentId(Long apartment_id);
 
 
@@ -28,7 +28,8 @@ public interface IOderRepository extends JpaRepository<Order,Long> {
 
     @Modifying
     @Query(value = "select * from Order where user_id = :id", nativeQuery = true)
-    Iterable<Order>findAllByUserId(@Param("id") Long id);
+    Iterable<Order>findAllByUser(@Param("id") Long id);
+
     @Query(value = "select * from Order o where o.apartment_id = :apartmentID", nativeQuery = true)
     Iterable<Order> findAllByApartment(@Param("apartmentID") Long apartmentID);
 

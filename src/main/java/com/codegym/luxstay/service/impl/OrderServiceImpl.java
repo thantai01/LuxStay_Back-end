@@ -54,12 +54,12 @@ public class OrderServiceImpl implements IOrder {
     }
 
     @Override
-    public Iterable<Order> findAllByUserId(Long id) {
-        return oderRepository.findAllByUserId(id);
+    public Iterable<Order> findAllByUser(Long id) {
+        return orderRepository.findAllByUser(id);
     }
 
     @Override
     public Iterable<Order> findAllByApartment(Long apartmentID) {
-        return oderRepository.findAllByApartment(apartmentID);
+        return orderRepository.findAllByApartment(apartmentID);
     }
 }

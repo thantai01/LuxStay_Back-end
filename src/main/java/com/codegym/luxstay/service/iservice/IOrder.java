@@ -10,7 +10,7 @@ public interface IOrder extends IGeneralService<Order> {
     Iterable<Order> findAllByApartmentId(Long apartment_id);
     Iterable<Order> findAllOrderOfApartmentWithPending(long apartmentId);
 
-    Iterable<Order>findAllByUserId(Long id);
+    Iterable<Order>findAllByUser(Long id);
     Iterable<Order> findAllByApartment(Long apartmentID);
 
 }
