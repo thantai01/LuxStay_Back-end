@@ -6,6 +6,7 @@ import com.codegym.luxstay.service.iservice.IApartment;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.Optional;
 
 @Service
@@ -73,6 +74,19 @@ public class ApartmentServiceImpl implements IApartment {
     }
 
     @Override
+    public Iterable<Apartment> searchMany1(String name, Date startDate) {
+        return iApartmentRepository.searchMany1(name, startDate);
+    }
+
+    @Override
+    public Iterable<Apartment> searchManyDate(Date startDate) {
+        return iApartmentRepository.searchManyDate(startDate);
+    }
+
+    @Override
+    public Iterable<Apartment> searchByString(String name) {
+        return iApartmentRepository.searchByString(name);
+    }
     public Iterable<Apartment> findAllByUserId(long id) {
         return iApartmentRepository.findAllByUserId(id);
     }
@@ -90,6 +104,16 @@ public class ApartmentServiceImpl implements IApartment {
     @Override
     public Iterable<Apartment> findAllByCityContainingAndDistrictContainingAndWardContaining(String city, String district, String ward) {
         return iApartmentRepository.findAllByCityContainingAndDistrictContainingAndWardContaining(city, district, ward);
+    }
+
+    @Override
+    public Iterable<Apartment> findbyPrice(Double price1, Double price2) {
+        return iApartmentRepository.findbyPrice(price1, price2);
+    }
+
+    @Override
+    public Iterable<Apartment> findByAll(String value, Long typeID, Double price1, Double price2) {
+        return iApartmentRepository.findByAll(value, typeID, price1, price2);
     }
 
 

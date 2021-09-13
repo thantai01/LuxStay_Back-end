@@ -11,7 +11,7 @@ import java.util.Optional;
 
 @CrossOrigin("*")
 @RestController
-@RequestMapping("api/oders")
+@RequestMapping("api/orders")
 public class OrderControllerAPI {
 
     @Autowired
@@ -48,4 +48,14 @@ public class OrderControllerAPI {
         orderService.delete(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
+    @GetMapping("/get/{id}")
+    public ResponseEntity<Iterable<Order>> findByUserId(@PathVariable Long id){
+        return new ResponseEntity<>(orderService.findAllByUserId(id), HttpStatus.OK);
+    }
+
+    @GetMapping("/get-apartment/{apartmentID}")
+    public ResponseEntity<Iterable<Order>> findByApartmentID(@PathVariable Long apartmentID){
+        return new ResponseEntity<>(orderService.findAllByApartment(apartmentID), HttpStatus.OK);
+    }
+
 }
