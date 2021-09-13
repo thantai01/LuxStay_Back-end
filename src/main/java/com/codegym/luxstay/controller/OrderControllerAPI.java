@@ -52,4 +52,10 @@ public class OrderControllerAPI {
     public ResponseEntity<Iterable<Order>> findByUserId(@PathVariable Long id){
         return new ResponseEntity<>(orderService.findAllByUserId(id), HttpStatus.OK);
     }
+
+    @GetMapping("/get-apartment/{apartmentID}")
+    public ResponseEntity<Iterable<Order>> findByApartmentID(@PathVariable Long apartmentID){
+        return new ResponseEntity<>(orderService.findAllByApartment(apartmentID), HttpStatus.OK);
+    }
+
 }

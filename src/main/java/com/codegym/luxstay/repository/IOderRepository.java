@@ -12,4 +12,6 @@ public interface IOderRepository extends JpaRepository<Order,Long> {
     @Modifying
     @Query(value = "select * from Order where user_id = :id", nativeQuery = true)
     Iterable<Order>findAllByUserId(@Param("id") Long id);
+    @Query(value = "select * from Order o where o.apartment_id = :apartmentID", nativeQuery = true)
+    Iterable<Order> findAllByApartment(@Param("apartmentID") Long apartmentID);
 }
